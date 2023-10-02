@@ -1,0 +1,2 @@
+pdfminer.six
+git+https://github.com/silnrsi/palaso-python.git
