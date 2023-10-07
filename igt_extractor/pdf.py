@@ -68,7 +68,7 @@ class PDFText:
         if char.startswith('(cid:'):
             char = chr(int(char.replace('(cid:', '').rstrip(')')))
         encoder.flush()
-        encoder.convert(char.encode(self.code_page))
+        encoder.convert(char.encode(self.code_page, errors='replace'))
         res = encoder.flush()
         return res
 
@@ -110,7 +110,7 @@ class PDFText:
         self.code_page = code_page
         self.main_language = main_language
 
-        self.encoders = {key: read_mapping(val) for key, val in font_mappings.items() if font_mappings}
+        self.encoders = {key: read_mapping(val) for key, val in font_mappings.items()} if font_mappings else {}
 
     def process_file(self,
                      filename: str,
